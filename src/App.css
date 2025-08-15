@@ -1,42 +1,86 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.App {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.Intro {
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+  p {
+    margin: 0px;
+  }
+}
+
+.Section-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
+  background-color: #f7f7f7;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.contactPageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: #f7f7f7;
+  height: 100%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  color: #888888;
+  margin-bottom: 7rem;
+  a {
+    color: #888;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  a:hover {
+    text-decoration: underline;
   }
 }
 
-.card {
-  padding: 2em;
+h1 {
+  font-family: "Instrument Serif", italic;
+  font-style: italic;
+  p {
+    margin: 0px auto;
+  }
 }
 
-.read-the-docs {
-  color: #888;
+.body-text {
+  font-family: "Inter", sans-serif;
+  color: #888888;
+  text-wrap: wrap;
+  padding-bottom: 20px;
+  p {
+    margin: 0px auto;
+  }
+}
+
+.footer {
+  display: flex;
+  background-color: #222222;
+  font-family: "Inter", sans-serif;
+  color: #f7f7f7;
+  padding: 20px;
+  justify-content: flex-start;
+  p {
+    margin: 0;
+  }
+}
+
+code {
+  font-family: "Inter", sans-serif;
 }
