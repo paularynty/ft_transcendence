@@ -1,11 +1,73 @@
 import { motion } from "motion/react";
+import styled from "styled-components";
 
-type HeroSectionProps = {
-  onStart: () => void;
+type Props = {
+  onClick: () => void;
   reduceMotion: boolean;
 };
 
-export const HeroSection = ({ onStart, reduceMotion }: HeroSectionProps) => {
+const Root = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    to bottom right,
+    var(--background),
+    var(--background),
+    rgba(var(--muted), 0.2)
+  );
+  position: relative;
+`;
+
+const Centered = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+`;
+
+const Title = styled.h1`
+  font-size: 3.75rem; /* 6xl */
+  font-weight: bold;
+  background: linear-gradient(
+    to right,
+    var(--primary),
+    var(--primary),
+    var(--muted-foreground)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  @media (min-width: 768px) {
+    font-size: 6rem; /* 8xl */
+  }
+  padding: 0.75rem;
+`;
+
+const StyledButton = styled.button`
+  padding: 2rem;
+  font-size: 1.125rem;
+  height: auto;
+  transition: transform 0.15s;
+  &:hover {
+    transform: scale(1.05);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+  & + & {
+    margin-left: 1rem;
+  }
+  border-radius: 0.375rem;
+  border-color: red;
+`;
+
+export const HeroSection = ({ onClick, reduceMotion }: Props) => {
   const animationProps = reduceMotion
     ? {}
     : {
@@ -23,95 +85,59 @@ export const HeroSection = ({ onStart, reduceMotion }: HeroSectionProps) => {
       };
 
   return (
-    <main
-      className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-background to-muted/20"
-      role="main"
-      aria-labelledby="hero-title"
-    >
+    <Root>
       {reduceMotion ? (
-        <div className="text-center space-y-8 px-4">
-          <h1
-            id="hero-title"
-            className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-primary via-primary to-muted-foreground bg-clip-text text-transparent"
-          >
-            Welcome to Pong
-          </h1>
-          <button
-            onClick={onStart}
-            className="h-10 rounded-md px-6 has-[>svg]:px-4 text-lg px-8 py-6 h-auto"
-            aria-label="Start the Pong game"
-          >
-            Log in
-          </button>
-          <button
-            onClick={onStart}
-            className="h-10 rounded-md px-6 has-[>svg]:px-4 text-lg px-8 py-6 h-auto"
-            aria-label="Start the Pong game"
-          >
-            Register
-          </button>
-        </div>
+        <Centered>
+          <Title>Welcome to Pong</Title>
+          <StyledButton onClick={onClick}>Log in</StyledButton>
+          <StyledButton onClick={onClick}>Register</StyledButton>
+        </Centered>
       ) : (
-        <motion.div className="text-center space-y-8 px-4" {...animationProps}>
-          <motion.h1
-            id="hero-title"
-            className="p-3 text-6xl md:text-8xl font-bold bg-gradient-to-r from-primary via-primary to-muted-foreground bg-clip-text text-transparent"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            Welcome to Pong
-          </motion.h1>
-          <motion.div {...buttonAnimationProps}>
-            <button
-              onClick={onStart}
-              className="h-10 rounded-md px-6 has-[>svg]:px-4 text-lg px-8 py-6 h-auto hover:scale-105 active:scale-95 transition-transform"
-              aria-label="Start the Pong game"
+        <motion.div {...animationProps}>
+          <Centered>
+            <motion.h1
+              style={{ margin: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
             >
-              Log in
-            </button>
-            <button
-              onClick={onStart}
-              className="h-10 rounded-md px-6 has-[>svg]:px-4 text-lg px-8 py-6 h-auto hover:scale-105 active:scale-95 transition-transform"
-              aria-label="Start the Pong game"
-            >
-              Register
-            </button>
-          </motion.div>
+              <Title>Welcome to Pong</Title>
+            </motion.h1>
+            <motion.div {...buttonAnimationProps}>
+              <StyledButton onClick={onClick}>Log in</StyledButton>
+              <StyledButton onClick={onClick}>Register</StyledButton>
+            </motion.div>
+          </Centered>
         </motion.div>
       )}
-
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {!reduceMotion && (
-          <>
-            <motion.div
-              className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary/30 rounded-full"
-              animate={{
-                x: [0, 100, 0],
-                y: [0, -50, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-            <motion.div
-              className="absolute top-3/4 right-1/4 w-2 h-2 bg-primary/30 rounded-full"
-              animate={{
-                x: [0, -100, 0],
-                y: [0, 50, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "linear",
-                delay: 2,
-              }}
-            />
-          </>
-        )}
-      </div>
-    </main>
+      {!reduceMotion && (
+        <>
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary/30 rounded-full"
+            animate={{
+              x: [0, -300, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              repeat: Infinity,
+              ease: "linear",
+              duration: 4,
+            }}
+          />
+          <motion.div
+            className="absolute top-3/4 right-1/4 w-2 h-2 bg-primary/30 rounded-full"
+            animate={{
+              x: [50, -200, 0],
+              y: [0, 50, 0],
+            }}
+            transition={{
+              repeat: Infinity,
+              ease: "linear",
+              duration: 4,
+            }}
+          />
+        </>
+      )}
+    </Root>
   );
 };
