@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
+import React from "react";
 
 type Props = {
-  onClick: () => void;
   reduceMotion: boolean;
 };
 
@@ -49,7 +50,7 @@ const Title = styled.h1`
   padding: 0.75rem;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   padding: 2rem;
   font-size: 1.125rem;
   height: auto;
@@ -67,7 +68,13 @@ const StyledButton = styled.button`
   border-color: red;
 `;
 
-export const HeroSection = ({ onClick, reduceMotion }: Props) => {
+export const HeroSection: React.FC<Props> = ({ reduceMotion }) => {
+  const handleClick = (route: string) => {
+    const navigate = useNavigate();
+    console.log("Navigating to:", route);
+    navigate(route);
+  };
+
   const animationProps = reduceMotion
     ? {}
     : {
@@ -89,8 +96,12 @@ export const HeroSection = ({ onClick, reduceMotion }: Props) => {
       {reduceMotion ? (
         <Centered>
           <Title>Welcome to Pong</Title>
-          <StyledButton onClick={onClick}>Log in</StyledButton>
-          <StyledButton onClick={onClick}>Register</StyledButton>
+          <StyledButton onClick={() => handleClick("/login")}>
+            Log in
+          </StyledButton>
+          <StyledButton onClick={() => handleClick("/register")}>
+            Register
+          </StyledButton>
         </Centered>
       ) : (
         <motion.div {...animationProps}>
@@ -104,8 +115,12 @@ export const HeroSection = ({ onClick, reduceMotion }: Props) => {
               <Title>Welcome to Pong</Title>
             </motion.h1>
             <motion.div {...buttonAnimationProps}>
-              <StyledButton onClick={onClick}>Log in</StyledButton>
-              <StyledButton onClick={onClick}>Register</StyledButton>
+              <StyledButton onClick={() => handleClick("/login")}>
+                Log in
+              </StyledButton>
+              <StyledButton onClick={() => handleClick("/register")}>
+                Register
+              </StyledButton>
             </motion.div>
           </Centered>
         </motion.div>

@@ -19,6 +19,9 @@ type Section =
   | "tournament"
   | "language";
 
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { MainMenu } from "./components/MainMenu";
+
 export default function App() {
   const [currentSection, setCurrentSection] = useState<Section>("hero");
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -63,7 +66,7 @@ export default function App() {
     }
   };
 
-  const handleThemeToggle = () => {
+  const handleToggleTheme = () => {
     const newTheme = !isDarkMode;
     setIsDarkMode(newTheme);
     updateTheme(newTheme);
@@ -138,34 +141,40 @@ export default function App() {
   };
 
   return (
-    <div className="size-full min-h-screen bg-background text-foreground">
-      {/* Skip to main content link for keyboard navigation */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded-md z-50"
-      >
-        Skip to main content
-      </a>
-
+    <Router>
+      {/* <div className="size-full min-h-screen bg-background text-foreground"> */}
       {/* Show navigation only after hero section */}
       {/* {currentSection !== "hero" && (
         <Navigation
-          currentSection={currentSection}
-          onSectionChange={handleSectionChange}
-          isDarkMode={isDarkMode}
-          onToggleTheme={handleThemeToggle}
+        currentSection={currentSection}
+        onSectionChange={handleSectionChange}
+        isDarkMode={isDarkMode}
+        onToggleTheme={handleThemeToggle}
         />
-      )} */}
+        )} */}
 
-      <div id="main-content">{renderCurrentSection()}</div>
+      {/* <div id="main-content">{renderCurrentSection()}</div> */}
 
       {/* Screen reader announcements */}
-      <div
-        id="announcements"
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      />
-    </div>
+      {/* <div
+          id="announcements"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        /> */}
+      {/* </div> */}
+      <Routes>
+        <Route path="/" element={<HeroSection reduceMotion={reduceMotion} />} />
+        <Route
+          path="/main"
+          element={
+            <MainMenu
+              isDarkMode={isDarkMode}
+              onToggleTheme={handleToggleTheme}
+            />
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
