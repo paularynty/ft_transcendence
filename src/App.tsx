@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { HeroSection } from "./components/HeroSection";
-// import { Navigation } from './components/Navigation';
+import { MainMenu } from "./components/MainMenu";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import { GameOverview } from './components/GameOverview';
 // import { PongGame } from './components/PongGame';
 // import { ProfilePage } from './components/ProfilePage';
@@ -9,21 +10,18 @@ import { HeroSection } from "./components/HeroSection";
 // import { TournamentPage } from './components/TournamentPage';
 // import { LanguagePage } from './components/LanguagePage';
 
-type Section =
-  | "hero"
-  | "overview"
-  | "newgame"
-  | "profile"
-  | "settings"
-  | "login"
-  | "tournament"
-  | "language";
-
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { MainMenu } from "./components/MainMenu";
+// type Section =
+//   | "hero"
+//   | "overview"
+//   | "newgame"
+//   | "profile"
+//   | "settings"
+//   | "login"
+//   | "tournament"
+//   | "language";
 
 export default function App() {
-  const [currentSection, setCurrentSection] = useState<Section>("hero");
+  // const [currentSection, setCurrentSection] = useState<Section>("hero");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
@@ -73,72 +71,72 @@ export default function App() {
     localStorage.setItem("pong-theme", newTheme ? "dark" : "light");
   };
 
-  const handleSectionChange = (section: string) => {
-    setCurrentSection(section as Section);
+  // const handleSectionChange = (section: string) => {
+  //   setCurrentSection(section as Section);
 
-    // Announce section change to screen readers
-    const announcement = `Navigated to ${section.replace(/([A-Z])/g, " $1").toLowerCase()} section`;
-    const announcer = document.createElement("div");
-    announcer.setAttribute("aria-live", "polite");
-    announcer.setAttribute("aria-atomic", "true");
-    announcer.className = "sr-only";
-    announcer.textContent = announcement;
-    document.body.appendChild(announcer);
-    setTimeout(() => document.body.removeChild(announcer), 1000);
-  };
+  //   // Announce section change to screen readers
+  //   const announcement = `Navigated to ${section.replace(/([A-Z])/g, " $1").toLowerCase()} section`;
+  //   const announcer = document.createElement("div");
+  //   announcer.setAttribute("aria-live", "polite");
+  //   announcer.setAttribute("aria-atomic", "true");
+  //   announcer.className = "sr-only";
+  //   announcer.textContent = announcement;
+  //   document.body.appendChild(announcer);
+  //   setTimeout(() => document.body.removeChild(announcer), 1000);
+  // };
 
-  const handleStart = () => {
-    setCurrentSection("overview");
-  };
+  // const handleStart = () => {
+  //   setCurrentSection("overview");
+  // };
 
-  const handleBackToOverview = () => {
-    setCurrentSection("overview");
-  };
+  // const handleBackToOverview = () => {
+  //   setCurrentSection("overview");
+  // };
 
-  const renderCurrentSection = () => {
-    switch (currentSection) {
-      case "hero":
-        return (
-          <HeroSection onStart={handleStart} reduceMotion={reduceMotion} />
-        );
-      // case "overview":
-      //   return (
-      //     <GameOverview
-      //       onSectionChange={handleSectionChange}
-      //       reduceMotion={reduceMotion}
-      //     />
-      //   );
-      // case "newgame":
-      //   return (
-      //     <PongGame
-      //       onBackToMenu={handleBackToOverview}
-      //       reduceMotion={reduceMotion}
-      //     />
-      //   );
-      // case "profile":
-      //   return <ProfilePage onBack={handleBackToOverview} />;
-      // case "settings":
-      //   return (
-      //     <SettingsPage
-      //       onBack={handleBackToOverview}
-      //       reduceMotion={reduceMotion}
-      //       onReduceMotionChange={setReduceMotion}
-      //       isDarkMode={isDarkMode}
-      //       onThemeChange={handleThemeToggle}
-      //     />
-      //   );
-      // case "login":
-      //   return <LoginPage onBack={handleBackToOverview} />;
-      // case "tournament":
-      //   return <TournamentPage onBack={handleBackToOverview} />;
-      // case "language":
-      //   return <LanguagePage onBack={handleBackToOverview} />;
-      default:
-        return (
-          <HeroSection onStart={handleStart} reduceMotion={reduceMotion} />
-        );
-    }
-  };
+  // const renderCurrentSection = () => {
+  //   switch (currentSection) {
+  //     case "hero":
+  //       return (
+  //         <HeroSection onStart={handleStart} reduceMotion={reduceMotion} />
+  //       );
+  // case "overview":
+  //   return (
+  //     <GameOverview
+  //       onSectionChange={handleSectionChange}
+  //       reduceMotion={reduceMotion}
+  //     />
+  //   );
+  // case "newgame":
+  //   return (
+  //     <PongGame
+  //       onBackToMenu={handleBackToOverview}
+  //       reduceMotion={reduceMotion}
+  //     />
+  //   );
+  // case "profile":
+  //   return <ProfilePage onBack={handleBackToOverview} />;
+  // case "settings":
+  //   return (
+  //     <SettingsPage
+  //       onBack={handleBackToOverview}
+  //       reduceMotion={reduceMotion}
+  //       onReduceMotionChange={setReduceMotion}
+  //       isDarkMode={isDarkMode}
+  //       onThemeChange={handleThemeToggle}
+  //     />
+  //   );
+  // case "login":
+  //   return <LoginPage onBack={handleBackToOverview} />;
+  // case "tournament":
+  //   return <TournamentPage onBack={handleBackToOverview} />;
+  // case "language":
+  //   return <LanguagePage onBack={handleBackToOverview} />;
+  //     default:
+  //       return (
+  //         <HeroSection onStart={handleStart} reduceMotion={reduceMotion} />
+  //       );
+  //   }
+  // };
 
   return (
     <Router>
@@ -171,6 +169,7 @@ export default function App() {
             <MainMenu
               isDarkMode={isDarkMode}
               onToggleTheme={handleToggleTheme}
+              reduceMotion={reduceMotion}
             />
           }
         />
