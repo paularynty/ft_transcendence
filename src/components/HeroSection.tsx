@@ -69,8 +69,8 @@ export const StyledButton = styled.button`
 `;
 
 export const HeroSection: React.FC<Props> = ({ reduceMotion }) => {
+  const navigate = useNavigate();
   const handleClick = (route: string) => {
-    const navigate = useNavigate();
     console.log("Navigating to:", route);
     navigate(route);
   };
@@ -115,10 +115,12 @@ export const HeroSection: React.FC<Props> = ({ reduceMotion }) => {
               <Title>Welcome to Pong</Title>
             </motion.h1>
             <motion.div {...buttonAnimationProps}>
-              <StyledButton onClick={() => handleClick("/login")}>
+              <StyledButton onClick={() => handleClick("/main")}>
+                {/*for now, will redirect to login later*/}
                 Log in
               </StyledButton>
-              <StyledButton onClick={() => handleClick("/register")}>
+              <StyledButton onClick={() => handleClick("/main")}>
+                {/*for now, will redirect to register later*/}
                 Register
               </StyledButton>
             </motion.div>

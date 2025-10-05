@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { HeroSection } from "./components/HeroSection";
 import { MainMenu } from "./components/MainMenu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 // import { GameOverview } from './components/GameOverview';
 // import { PongGame } from './components/PongGame';
 // import { ProfilePage } from './components/ProfilePage';
@@ -163,17 +165,9 @@ export default function App() {
       {/* </div> */}
       <Routes>
         <Route path="/" element={<HeroSection reduceMotion={reduceMotion} />} />
-        <Route
-          path="/main"
-          element={
-            <MainMenu
-              isDarkMode={isDarkMode}
-              onToggleTheme={handleToggleTheme}
-              reduceMotion={reduceMotion}
-            />
-          }
-        />
+        <Route path="/main" element={<MainMenu />} />
       </Routes>
+      <Footer isDarkMode={isDarkMode} onToggleTheme={handleToggleTheme} />
     </Router>
   );
 }

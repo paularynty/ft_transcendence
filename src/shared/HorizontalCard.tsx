@@ -25,27 +25,22 @@ const Description = styled.p`
 `;
 
 type Props = {
-  item: {
-    id: string;
-    title: string;
-    description: string;
-    icon: React.ForwardRefExoticComponent<
-      Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
-    >;
-    primary?: boolean;
-  };
+  icon: React.ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+  >;
+  title: string;
+  description: string;
 };
 
-export const HorizontalCard = ({ item }: Props) => {
+export const HorizontalCard = ({ icon: Icon, title, description }: Props) => {
   return (
     <Root>
       <CardHeader>
-        <div className="flex items-center gap-3">
-          {/* <StyledIcon type={item.icon} /> */}
-        </div>
+        <div className="flex items-center gap-3"></div>
         <div>
-          <Title>{item.title}</Title>
-          <Description>{item.description}</Description>
+          <Icon />
+          <Title>{title}</Title>
+          <Description>{description}</Description>
         </div>
       </CardHeader>
     </Root>

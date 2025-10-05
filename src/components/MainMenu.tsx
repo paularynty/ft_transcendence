@@ -1,25 +1,11 @@
-import { StyledButton } from "./HeroSection";
 import { Play, User, Trophy, Settings, LogIn, Globe } from "lucide-react";
-import { DarkModeIcon } from "../shared/DarkModeIcon";
-import { LightModeIcon } from "../shared/LightModeIcon";
-import { motion } from "motion/react";
-import { HorizontalCard } from "../shared/HorizontalCard";
+import { HorizontalCardGrid } from "../shared/HorizontalCardGrid";
 
-interface NavigationProps {
-  isDarkMode: boolean;
-  reduceMotion: boolean;
-  onToggleTheme: () => void;
-}
-
-export const MainMenu = ({
-  isDarkMode,
-  onToggleTheme,
-  reduceMotion,
-}: NavigationProps) => {
+export const MainMenu = () => {
   const menuItems = [
     {
       id: "newgame",
-      title: "New Game",
+      title: "New game",
       description: "Start new Pong game against AI",
       icon: Play,
       primary: true,
@@ -58,34 +44,7 @@ export const MainMenu = ({
 
   return (
     <>
-      {reduceMotion ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {menuItems.map((item) => (
-            <HorizontalCard item={item}></HorizontalCard>
-          ))}
-        </div>
-      ) : (
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          initial="hidden"
-          animate="visible"
-        >
-          {menuItems.map((item) => (
-            <motion.div
-              key={item.id}
-              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            >
-              <HorizontalCard item={item}></HorizontalCard>
-            </motion.div>
-          ))}
-        </motion.div>
-      )}
-      <StyledButton
-        onClick={onToggleTheme}
-        aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-      >
-        {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
-      </StyledButton>
+      <HorizontalCardGrid menuItems={menuItems}></HorizontalCardGrid>
     </>
   );
 };
